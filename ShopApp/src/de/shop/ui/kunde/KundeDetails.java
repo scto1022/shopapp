@@ -55,5 +55,7 @@ public class KundeDetails extends Fragment {
                     		                                              KundeBestellungen.class,
                     		                                              args));
 	    actionBar.addTab(tab);
+	    
+	    
 	}
 }
