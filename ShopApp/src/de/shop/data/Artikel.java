@@ -2,25 +2,32 @@ package de.shop.data;
 
 import java.io.Serializable;
 
-public class Artikel implements Serializable {
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import static de.shop.ShopApp.ShopApp.jsonBuilderFactory;
+
+
+public class Artikel implements Serializable,JsonMappable {
 	private static final long serialVersionUID = 1293068472891525321L;
 	
 	public Long id;
 	public String bezeichnung;
 	public double preis;
 	public String verfuegbarkeit;
-	
+	public int version;
 	
 	public Artikel() {
 	super();
 	}
 	
-	public Artikel(Long id, String bezeichnung, double preis, String verfuegbarkeit) {
+	public Artikel(Long id, String bezeichnung, double preis, String verfuegbarkeit, int version) {
 		super();
 		this.bezeichnung = bezeichnung;
 		this.id = id;
 		this.preis = preis;
 		this.verfuegbarkeit = verfuegbarkeit;
+		this.version = 	version;
 	}
 
 	@Override
@@ -74,4 +81,34 @@ public class Artikel implements Serializable {
 				+ ", preis=" + preis + ", verfuegbarkeit=" + verfuegbarkeit
 				+ "]";
 	}
+	
+	 protected JsonObjectBuilder getJsonObjectBuilder() {
+		    return jsonBuilderFactory.createObjectBuilder()
+		                         .add("id", id)
+		                           .add("bezeichnung", bezeichnung)
+		                           .add("verfuegbarkeit", verfuegbarkeit)
+		                           .add("preis", preis)
+		                           .add("version", version);
+		                          
+		  }
+		  
+		  @Override
+		  public JsonObject toJsonObject() {
+		    return getJsonObjectBuilder().build();
+		  }
+
+		  public void fromJsonObject(JsonObject jsonObject) {
+		    id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+		    version = jsonObject.getInt("version");
+		    bezeichnung = jsonObject.getString("bezeichnung");
+		    verfuegbarkeit = jsonObject.getString("verfuegbarkeit");
+		    preis = jsonObject.getJsonNumber("preis").doubleValue();
+		   
+		  
+		  }
+		  
+		  @Override
+		  public void updateVersion() {
+		    version++;
+		  }
 }

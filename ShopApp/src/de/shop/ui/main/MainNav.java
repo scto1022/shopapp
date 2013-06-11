@@ -19,13 +19,13 @@ import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
-
 import de.shop.R;
 import de.shop.ui.artikel.ArtikelNeu;
 //import de.shop.ui.bestellung.BestellungenNeu;
 //import de.shop.ui.kunde.KundeDelete;
 //import de.shop.ui.kunde.KundeSucheId;
 //import de.shop.ui.kunde.KundenSucheNachname;
+import de.shop.ui.artikel.ArtikelSucheId;
 
 public class MainNav extends ListFragment implements OnItemClickListener, OnMenuItemClickListener  {
 	public enum NavType {
@@ -57,9 +57,9 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 	private static final String[] FROM = { ICON, TEXT };
 	private static final int[] TO = { R.id.nav_icon, R.id.nav_text };
 	
-	private PopupMenu kundenPopup;
-	private PopupMenu bestellungenPopup;
-	
+	private PopupMenu artikelPopup;
+//	private PopupMenu bestellungenPopup;
+//	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final ListAdapter listAdapter = createListAdapter();        
@@ -122,12 +122,12 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 //				break;
 				
 			case ARTIKEL:
-				if (bestellungenPopup == null) {
-					bestellungenPopup = new PopupMenu(getActivity(), view);
-					bestellungenPopup.inflate(R.menu.artikel_popup);
-					bestellungenPopup.setOnMenuItemClickListener(this);
+				if (artikelPopup == null) {
+					artikelPopup = new PopupMenu(getActivity(), view);
+					artikelPopup.inflate(R.menu.artikel_popup);
+					artikelPopup.setOnMenuItemClickListener(this);
 				}
-				popup = bestellungenPopup;
+				popup = artikelPopup;
 				break;
 				
 			default:
@@ -156,6 +156,10 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 			
 			case R.id.artikel_neu:
 				neuesFragment = new ArtikelNeu();
+				break;
+				
+			case R.id.artikel_suche_id:
+				neuesFragement = new ArtikelSucheId();
 				break;
 
 			default:

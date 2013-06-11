@@ -1,5 +1,8 @@
 <resources>
     
 	<string name="a_artikel_neu">Neuer Artikel</string>
-
+	<string name="a_artikel_id_auswahl_hint">Wähle eine Artikelnr.</string>
+	<string name="a_artikel_id_hint">Gebe eine Artikelnr. ein</string>	
+	<string name="a_artikel_id">ID</string>
+	<string name="a_bezeichnung">Bezeichnung</string>
 </resources>

@@ -1,5 +1,9 @@
 <resources>
     
 	<string name="a_artikel_neu">New article</string>
-
+	<string name="a_artikel_id_auswahl_hint">Select an article no.</string>
+	<string name="a_artikel_id_hint">Enter article no.</string>	
+	<string name="a_artikel_id">ID</string>
+	<string name="a_bezeichnung">bezeichnung--</string>
+	
 </resources>
