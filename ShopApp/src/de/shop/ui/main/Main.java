@@ -35,13 +35,22 @@ public class Main extends Activity implements OnClickListener {
 		}
 	};
 	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        
-        findViewById(R.id.btn_suchen).setOnClickListener(this);
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.main);
+	getFragmentManager().beginTransaction()
+	.add(R.id.details, new Startseite())
+	.commit();
+	}
+	
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.main);
+//        
+//        findViewById(R.id.btn_suchen).setOnClickListener(this);
+//    }
     
 	@Override
 	protected void onStart() {

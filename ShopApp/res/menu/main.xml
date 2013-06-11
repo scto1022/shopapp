@@ -1,6 +1,38 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_settings"
-        android:title="@string/s_menu_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+    android:baselineAligned="false"
+	tools:context=".ui.main.Main" >
+
+	<EditText
+		android:id="@+id/kunde_id"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="@string/s_kunde_id_hint"
+		android:inputType="number"
+		tools:ignore="LabelFor" >
+
+		<requestFocus />
+		
+	</EditText>
+	
+	<Button
+	    android:id="@+id/btn_suchen"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="50dp"
+		android:text="@string/s_btn_suchen" />
+
+</LinearLayout>
+
+	<item
+		android:id="@+id/menu_settings"
+		android:orderInCategory="100"
+		android:showAsAction="never"
+		android:title="@string/s_menu_settings"/>
+
 </menu>

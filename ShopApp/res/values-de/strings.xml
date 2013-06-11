@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resources>
 
-    <string name="s_app_name">Shop</string>
-    <string name="s_btn_suchen">Suchen</string>
-    <string name="s_menu_settings">Einstellungen</string>
-	<string name="s_kunde_id_hint">Kundennummer eingeben</string>
-
+	<string name="s_app_name">Shop</string>
+	<string name="s_menu_settings">Einstellungen</string>
+	<string name="s_hallo">Hallo!</string>
+	<string name="s_nav_kunden">Kunden</string>
+	<string name="s_nav_artikel">Artikel</string>
+ 	<string name="s_artikel_hint">Geben Sie einen Artikel ein:</string>
+ 	<string name ="s_artikel_suche_id">Artikel suchen</string>
+ 	<string name ="s_artikel_anlegen">Artikel anlegen</string>
+ 	<string name="s_desc_icon">Icon</string>
+ 	
 </resources>
