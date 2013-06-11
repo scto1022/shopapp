@@ -1,6 +1,6 @@
 package de.shop.service;
 
-import static de.shop.ShopApp.ShopApp.jsonReaderFactory;
+import static de.shop.ShopApp.jsonReaderFactory;
 import static de.shop.ui.main.Prefs.host;
 import static de.shop.ui.main.Prefs.password;
 import static de.shop.ui.main.Prefs.path;

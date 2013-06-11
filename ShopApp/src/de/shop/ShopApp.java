@@ -1,4 +1,4 @@
-package de.shop.ShopApp;
+package de.shop;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

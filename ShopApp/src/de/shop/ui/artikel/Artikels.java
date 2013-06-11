@@ -11,7 +11,7 @@ public class Artikels extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
-		return inflater.inflate(R.layout.artikels, container, false);
+		return inflater.inflate(R.layout.artikel_details, container, false);
 	}
 
 }

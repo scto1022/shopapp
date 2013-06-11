@@ -1,7 +1,7 @@
 package de.shop.ui.artikel;
 
 	import static android.view.inputmethod.EditorInfo.IME_NULL;
-	import static de.shop.util.Constants.KUNDE_KEY;
+	import static de.shop.util.Constants.ARTIKEL_KEY;
 	import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
 	import java.util.Collections;
@@ -33,7 +33,7 @@ package de.shop.ui.artikel;
 
 	public class ArtikelSucheId extends Fragment implements OnClickListener, OnEditorActionListener {
 		
-		private AutoCompleteTextView kundeIdTxt;
+		private AutoCompleteTextView artikelIdTxt;
 		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,12 +44,12 @@ package de.shop.ui.artikel;
 		
 		@Override
 		public void onViewCreated(View view, Bundle savedInstanceState) {
-			kundeIdTxt = (AutoCompleteTextView) view.findViewById(R.id.artikel_id_auto);
-			final ArrayAdapter<Long> adapter = new AutoCompleteIdAdapter(kundeIdTxt.getContext());
-	    	kundeIdTxt.setAdapter(adapter);
-	    	kundeIdTxt.setOnEditorActionListener(this);
+			artikelIdTxt = (AutoCompleteTextView) view.findViewById(R.id.artikel_id_auto);
+			final ArrayAdapter<Long> adapter = new AutoCompleteIdAdapter(artikelIdTxt.getContext());
+	    	artikelIdTxt.setAdapter(adapter);
+	    	artikelIdTxt.setOnEditorActionListener(this);
 	    	
-			// KundeSucheId (this) ist gleichzeitig der Listener, wenn der Suchen-Button angeklickt wird
+			// artikelSucheId (this) ist gleichzeitig der Listener, wenn der Suchen-Button angeklickt wird
 			// und implementiert deshalb die Methode onClick() unten
 	    	view.findViewById(R.id.btn_suchen).setOnClickListener(this);
 	    	
@@ -96,19 +96,19 @@ package de.shop.ui.artikel;
 		private void suchen(View view) {
 			final Context ctx = view.getContext();
 
-			final String kundeIdStr = kundeIdTxt.getText().toString();
-			if (TextUtils.isEmpty(kundeIdStr)) {
-				kundeIdTxt.setError(getString(R.string.a_artikelnr_fehlt));
+			final String artikelIdStr = artikelIdTxt.getText().toString();
+			if (TextUtils.isEmpty(artikelIdStr)) {
+				artikelIdTxt.setError(getString(R.string.a_artikelnr_fehlt));
 	    		return;
 	    	}
 			
-			final Long kundeId = Long.valueOf(kundeIdStr);
+			final Long artikelId = Long.valueOf(artikelIdStr);
 			final Main mainActivity = (Main) getActivity();
 			final HttpResponse<? extends Artikel> result = mainActivity.getArtikelServiceBinder().sucheArtikelById(artikelId, ctx);
 
 			if (result.responseCode == HTTP_NOT_FOUND) {
-				final String msg = getString(R.string.a_artikel_not_found, kundeIdStr);
-				kundeIdTxt.setError(msg);
+				final String msg = getString(R.string.a_artikel_not_found, artikelIdStr);
+				artikelIdTxt.setError(msg);
 				return;
 			}
 			
@@ -116,7 +116,7 @@ package de.shop.ui.artikel;
 			final Bundle args = new Bundle(1);
 			args.putSerializable(ARTIKEL_KEY, artikel);
 			
-			final Fragment neuesFragment = new Artikel();
+			final Fragment neuesFragment = new Artikels();
 			neuesFragment.setArguments(args);
 			
 			// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird

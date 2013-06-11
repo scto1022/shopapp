@@ -4,6 +4,10 @@
 	<string name="a_artikel_id_auswahl_hint">Select an article no.</string>
 	<string name="a_artikel_id_hint">Enter article no.</string>	
 	<string name="a_artikel_id">ID</string>
-	<string name="a_bezeichnung">bezeichnung--</string>
+	<string name="a_bezeichnung">Declaration</string>
+	<string name="a_artikelnr_fehlt">Article no. is missing</string>
+	<string name="a_artikel_not_found">Article could not be found</string>
+	
+	
 	
 </resources>

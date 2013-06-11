@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
-import static de.shop.ShopApp.ShopApp.jsonBuilderFactory;
+import static de.shop.ShopApp.jsonBuilderFactory;
 
 
 public class Artikel implements Serializable,JsonMappable {
@@ -84,7 +84,7 @@ public class Artikel implements Serializable,JsonMappable {
 	
 	 protected JsonObjectBuilder getJsonObjectBuilder() {
 		    return jsonBuilderFactory.createObjectBuilder()
-		                         .add("id", id)
+		                         .add("aid", id)
 		                           .add("bezeichnung", bezeichnung)
 		                           .add("verfuegbarkeit", verfuegbarkeit)
 		                           .add("preis", preis)
@@ -98,7 +98,7 @@ public class Artikel implements Serializable,JsonMappable {
 		  }
 
 		  public void fromJsonObject(JsonObject jsonObject) {
-		    id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+		    id = Long.valueOf(jsonObject.getJsonNumber("aid").longValue());
 		    version = jsonObject.getInt("version");
 		    bezeichnung = jsonObject.getString("bezeichnung");
 		    verfuegbarkeit = jsonObject.getString("verfuegbarkeit");

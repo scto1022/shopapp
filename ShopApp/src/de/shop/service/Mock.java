@@ -1,6 +1,6 @@
 package de.shop.service;
 
-import static de.shop.ShopApp.ShopApp.jsonReaderFactory;
+import static de.shop.ShopApp.jsonReaderFactory;
 import static de.shop.ui.main.Prefs.username;
 import static de.shop.util.Constants.KUNDEN_PATH;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
@@ -29,10 +29,9 @@ import javax.json.JsonString;
 import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
-import de.shop.ShopApp.ShopApp;
+import de.shop.ShopApp;
 import de.shop.data.Kunde;
 import de.shop.data.Artikel;
-
 import de.shop.util.InternalShopError;
 
 final class Mock {
@@ -280,6 +279,51 @@ final class Mock {
 		Log.d(LOG_TAG, result.resultObject.toString());
 		return result;
 	}
-    
+    static List<Long> sucheArtikelIdsByPrefix(String artikelIdPrefix) {
+		int dateinameId = -1;
+    	if ("3".equals(artikelIdPrefix)) {
+    		dateinameId = R.raw.mock_ids_1;
+    	}
+    	else if ("30".equals(artikelIdPrefix)) {
+    		dateinameId = R.raw.mock_ids_10;
+    	}
+    	else if ("11".equals(artikelIdPrefix)) {
+    		dateinameId = R.raw.mock_ids_11;
+    	}
+    	else if ("2".equals(artikelIdPrefix)) {
+    		dateinameId = R.raw.mock_ids_2;
+    	}
+    	else if ("20".equals(artikelIdPrefix)) {
+    		dateinameId = R.raw.mock_ids_20;
+    	}
+    	else {
+    		return Collections.emptyList();
+    	}
+    	
+    	final String jsonStr = read(dateinameId);
+		JsonReader jsonReader = null;
+    	JsonArray jsonArray;
+    	try {
+    		jsonReader = jsonReaderFactory.createReader(new StringReader(jsonStr));
+    		jsonArray = jsonReader.readArray();
+    	}
+    	finally {
+    		if (jsonReader != null) {
+    			jsonReader.close();
+    		}
+    	}
+    	
+    	final List<Long> result = new ArrayList<Long>(jsonArray.size());
+    	final List<JsonNumber> jsonNumberList = jsonArray.getValuesAs(JsonNumber.class);
+	    for (JsonNumber jsonNumber : jsonNumberList) {
+	    	final Long id = Long.valueOf(jsonNumber.longValue());
+	    	result.add(id);
+    	}
+    	
+    	Log.d(LOG_TAG, "ids= " + result.toString());
+    	
+    	return result;
+    }
     private Mock() {}
 }
+

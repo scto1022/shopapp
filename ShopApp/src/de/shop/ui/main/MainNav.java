@@ -159,7 +159,7 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 				break;
 				
 			case R.id.artikel_suche_id:
-				neuesFragement = new ArtikelSucheId();
+				neuesFragment = new ArtikelSucheId();
 				break;
 
 			default:

@@ -5,4 +5,7 @@
 	<string name="a_artikel_id_hint">Gebe eine Artikelnr. ein</string>	
 	<string name="a_artikel_id">ID</string>
 	<string name="a_bezeichnung">Bezeichnung</string>
+	<string name="a_artikelnr_fehlt">Artikelnummer fehlt</string>
+	<string name="a_artikel_not_found">Artikel nicht gefunden</string>
+	
 </resources>
