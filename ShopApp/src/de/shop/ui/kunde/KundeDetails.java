@@ -95,6 +95,8 @@ public class KundeDetails extends Fragment {
 	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
 	        	Log.d(LOG_TAG, values[i]);
 	        }
+			final TextView txtBest = (TextView) view.findViewById(R.id.kunde_hasOrders);
+	      	txtverf.setText(anzahl);
 		}
    }
 	
