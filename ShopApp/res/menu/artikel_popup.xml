@@ -3,6 +3,6 @@
 	android:id="@+id/artikel_suche_id"
 	android:title="@string/s_artikel_suche_id"/>
 <item
-	android:id="@+id/artikel_suche_nachname"
+	android:id="@+id/artikel_neu"
 	android:title="@string/s_artikel_anlegen" />
 </menu>

@@ -10,6 +10,7 @@
 	<string name="s_artikel_hint">Enter article</string>
 	<string name ="s_artikel_suche_id">Search article</string>
  	<string name ="s_artikel_anlegen">New article</string>
+ 	<string name ="s_btn_anlegen">Confirm article</string>
 
 
 	<string name="s_app_name">Shop</string>

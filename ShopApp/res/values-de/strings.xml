@@ -13,6 +13,7 @@
 	<string name="s_app_name">Shop</string>
 	<string name="s_hallo">Hallo!</string>
 	<string name="s_desc_icon">Icon für den Navigationseintrag</string>
+	<string name ="s_btn_anlegen">Artikel anlegen</string>
 
 	<string name="s_nav_bestellungen">Bestellungen</string>
 	<string name="s_einstellungen">Einstellungen</string>

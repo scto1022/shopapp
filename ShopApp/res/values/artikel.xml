@@ -8,7 +8,9 @@
 	<string name="a_bezeichnung">Declaration</string>
 	<string name="a_artikelnr_fehlt">Article no. is missing</string>
 	<string name="a_artikel_not_found">Article could not be found</string>
-	
+	<string name="a_verfuegbar">Available</string>
+		<string name="a_ja">Yes</string>
+			<string name="a_nein">No</string>
 	
 	
 </resources>
