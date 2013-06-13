@@ -4,8 +4,12 @@
 	<string name="a_artikel_id_auswahl_hint">Wähle eine Artikelnr.</string>
 	<string name="a_artikel_id_hint">Gebe eine Artikelnr. ein</string>	
 	<string name="a_artikel_id">ID</string>
+	<string name="a_artikel_preis">Preis</string>
 	<string name="a_bezeichnung">Bezeichnung</string>
 	<string name="a_artikelnr_fehlt">Artikelnummer fehlt</string>
 	<string name="a_artikel_not_found">Artikel nicht gefunden</string>
+	<string name="a_verfuegbar">Verfuegbar</string>
+		<string name="a_ja">Ja</string>
+			<string name="a_nein">Nein</string>
 	
 </resources>

@@ -1,16 +1,88 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-	xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.main.Main" >
+	android:layout_height="match_parent"
+	tools:context=".ui.main.Main" >
 	
-    <TextView
-    	android:id="@+id/artikel_neu"
-    	android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/a_artikel_neu" />
+	<TableLayout
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+	
+		
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/a_bezeichnung" />
+			
+			<EditText
+			    android:id="@+id/bezeichnung_new"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
+	
+		</TableRow>
+		
+		<TableRow>
+		
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/a_artikel_preis" />
+	        
+	        <EditText
+	            android:id="@+id/preis_new"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+ 
+	   
+	    
 
-</LinearLayout>
+	  
+	
+	    <TableRow>
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/a_verfuegbar" />
+	    	
+	    	<LinearLayout
+	    		android:orientation="vertical"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content">
+	
+			    <CheckBox
+			    	android:id="@+id/ja"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="@string/a_ja" />
+			    
+			    <CheckBox
+			    	android:id="@+id/nein"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="@string/a_nein" />
+			    
+		
+	    	</LinearLayout>
+	    	
+	    </TableRow>
+	<Button
+		android:id="@+id/btn_anlegen"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="50dp"
+		android:text="@string/s_btn_anlegen" />
+	</TableLayout>
+	
+</ScrollView>
