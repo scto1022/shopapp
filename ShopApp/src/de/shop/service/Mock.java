@@ -3,6 +3,7 @@ package de.shop.service;
 import static de.shop.ShopApp.jsonReaderFactory;
 import static de.shop.ui.main.Prefs.username;
 import static de.shop.util.Constants.KUNDEN_PATH;
+import static de.shop.util.Constants.ARTIKEL_PATH;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
@@ -324,6 +325,16 @@ final class Mock {
     	
     	return result;
     }
+    
+    static HttpResponse<Artikel> createArtikel(Artikel artikel) {
+    	artikel.id = Long.valueOf(artikel.bezeichnung.length());  // Anzahl der Buchstaben des Nachnamens als emulierte neue ID
+    	Log.d(LOG_TAG, "createArtikel: " + artikel);
+    	Log.d(LOG_TAG, "createArtikel: " + artikel.toJsonObject());
+    	final HttpResponse<Artikel> result = new HttpResponse<Artikel>(HTTP_CREATED, ARTIKEL_PATH + "/1", artikel);
+    	return result;
+    }
+
+    
     private Mock() {}
 }
 
