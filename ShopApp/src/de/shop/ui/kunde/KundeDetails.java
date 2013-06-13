@@ -102,7 +102,7 @@ public class KundeDetails extends Fragment {
       	
       	if (bestellungenIds == null || bestellungenIds.isEmpty()) {
       		txtBest.setText("Nope!");
-		}
+      	}
 		else {
 	        int anzahl = bestellungenIds.size();
 	        bestellungen = new ArrayList<Bestellung>(anzahl);
@@ -113,7 +113,7 @@ public class KundeDetails extends Fragment {
 	        	Log.d(LOG_TAG, values[i]);
 	        }
 			
-	      	txtverf.setText(anzahl);
+			txtBest.setText("" + anzahl);
 		}
    }
 	
