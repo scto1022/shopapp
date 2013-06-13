@@ -39,6 +39,10 @@ public class BestellungService extends Service {
 	
 	public class BestellungServiceBinder extends Binder {
 		
+		public BestellungService getService() {
+			return BestellungService.this;
+		}
+		
 		// Aufruf in einem eigenen Thread
 		public HttpResponse<Bestellung> getBestellungById(Long id, final Context ctx) {
 			
