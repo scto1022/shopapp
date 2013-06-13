@@ -3,38 +3,42 @@ package de.shop.data;
 import static de.shop.ShopApp.jsonBuilderFactory;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 
-public class Kunde implements Serializable, JsonMappable {
-	private static final long serialVersionUID = 1293068472891525321L;
+public class Bestellung implements Serializable, JsonMappable {
+	private static final long serialVersionUID = 1293068472891525011L;
 	
 	public Long id;
-	public String name;
-	public String vname;
-	public String email;
-	public String bestellungURI;
+	public BigDecimal gesamtpreis;
 
-	public Kunde() {
+	public Bestellung() {
 		super();
 	}
 	
-	public Kunde(Long id, String name, String vname, String email) {
+	public Bestellung(Long id, BigDecimal gesamtpreis) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.vname = vname;
-		this.email = email;
+		this.gesamtpreis = gesamtpreis;
+	}
+
+	
+	
+	@Override
+	public String toString() {
+		return "Bestellung [id=" + id + ", gesamtpreis=" + gesamtpreis + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((gesamtpreis == null) ? 0 : gesamtpreis.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -46,29 +50,24 @@ public class Kunde implements Serializable, JsonMappable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Kunde other = (Kunde) obj;
+		Bestellung other = (Bestellung) obj;
+		if (gesamtpreis == null) {
+			if (other.gesamtpreis != null)
+				return false;
+		} else if (!gesamtpreis.equals(other.gesamtpreis))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Kunde [id=" + id + ", name=" + name + "]";
-	}
-	
-	// TODO Neuen kunden anlegen
+	// TODO Neue Bestellung anlegen
 	protected JsonObjectBuilder getJsonObjectBuilder() {
 	    return jsonBuilderFactory.createObjectBuilder()
-	                      	.add("MOCK", name);
+	                      	.add("MOCK", id);
 	                           
 	                          
 	}
@@ -85,10 +84,7 @@ public class Kunde implements Serializable, JsonMappable {
 	
 	public void fromJsonObject(JsonObject jsonObject) {
 	  id = Long.valueOf(jsonObject.getJsonNumber("kid").longValue());
-	  name = jsonObject.getString("nachname");
-	  vname = jsonObject.getString("vorname");
-	  email = jsonObject.getString("email");
-	  bestellungURI = jsonObject.getString("bestellungenUri");
+	  gesamtpreis = jsonObject.getJsonNumber("nachname").bigDecimalValue();
 	}
 	
 	
