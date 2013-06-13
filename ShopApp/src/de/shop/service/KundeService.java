@@ -1,7 +1,6 @@
 package de.shop.service;
 
 import static android.app.ProgressDialog.STYLE_SPINNER;
-import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.KUNDEN_ID_PREFIX_PATH;
 import static de.shop.util.Constants.KUNDEN_PATH;
