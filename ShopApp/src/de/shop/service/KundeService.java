@@ -101,30 +101,30 @@ public class KundeService extends Service {
 		}
 		
 		// Aufruf in einem eigenen Thread
-				public Kunde getKunde(Long id) {
+		public Kunde getKunde(Long id) {
 					
-					// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Kunde"
-					final AsyncTask<Long, Void, Kunde> getKundeTask = new AsyncTask<Long, Void, Kunde>() {
+			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Kunde"
+			final AsyncTask<Long, Void, Kunde> getKundeTask = new AsyncTask<Long, Void, Kunde>() {
 
-						@Override
-			    		protected void onPreExecute() {
-							Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread starten ...");
-						}
+				@Override
+			    protected void onPreExecute() {
+					Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread starten ...");
+				}
 						
-						@Override
-						// Neuer Thread (hier: Emulation des REST-Aufrufs), damit der UI-Thread nicht blockiert wird
-						protected Kunde doInBackground(Long... ids) {
-							final Long kundeId = ids[0];
-							final Kunde kunde = new Kunde(kundeId,"Nachname", "Vorname", "beispiel@email.com");
-							Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + kunde);
-							return kunde;
-						}
-						
-						@Override
-			    		protected void onPostExecute(Kunde kunde) {
-							Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread beenden ...");
-			    		}
-					};
+				@Override
+				// Neuer Thread (hier: Emulation des REST-Aufrufs), damit der UI-Thread nicht blockiert wird
+				protected Kunde doInBackground(Long... ids) {
+					final Long kundeId = ids[0];
+					final Kunde kunde = new Kunde(kundeId,"Nachname", "Vorname", "beispiel@email.com");
+					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + kunde);
+					return kunde;
+				}
+				
+				@Override
+	    		protected void onPostExecute(Kunde kunde) {
+					Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread beenden ...");
+			  		}
+				};
 					
 			    	getKundeTask.execute(id);
 			    	Kunde kunde = null;
@@ -137,6 +137,32 @@ public class KundeService extends Service {
 			    	
 			    	return kunde;
 				}
+				
+		public List<Long> sucheBestellungenIdsByKundeId(Long id, final Context ctx) {
+			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "List<Long>"
+			final AsyncTask<Long, Void, List<Long>> sucheBestellungenIdsByKundeIdTask = new AsyncTask<Long, Void, List<Long>>() {
+				@Override
+				// Neuer Thread, damit der UI-Thread nicht blockiert wird
+				protected List<Long> doInBackground(Long... ids) {
+					final Long id = ids[0];
+		    		final String path = KUNDEN_PATH + "/" + id + "/bestellungenIds";
+		    		Log.v(LOG_TAG, "path = " + path);
+		    		final List<Long> result = WebServiceClient.getJsonLongList(path);
+			    	Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
+					return result;
+				}
+			};
 			
+			sucheBestellungenIdsByKundeIdTask.execute(id);
+			List<Long> bestellungIds = null;
+			try {
+				bestellungIds = sucheBestellungenIdsByKundeIdTask.get(timeout, SECONDS);
+			}
+	    	catch (Exception e) {
+	    		throw new InternalShopError(e.getMessage(), e);
+			}
+	
+			return bestellungIds;
+	    }
 	}
 }
