@@ -141,6 +141,7 @@ public class ArtikelService extends Service {
 	    	return artikel;
 		}
 		public HttpResponse<Artikel> createArtikel(Artikel artikel, final Context ctx) {
+			Log.d(LOG_TAG,"create artikel vom ServiceBinder wird aufgerufen");
 			// (evtl. mehrere) Parameter vom Typ "Artikel", Resultat vom Typ "void"
 			final AsyncTask<Artikel, Void, HttpResponse<Artikel>> createArtikelTask = new AsyncTask<Artikel, Void, HttpResponse<Artikel>>() {
 				@Override
@@ -154,6 +155,7 @@ public class ArtikelService extends Service {
 					final Artikel artikel = artikels[0];
 		    		final String path = ARTIKEL_PATH;
 		    		Log.v(LOG_TAG, "path = " + path);
+		    		Log.v(LOG_TAG, artikel.toString());
 
 		    		final HttpResponse<Artikel> result = mock
                                                                ? Mock.createArtikel(artikel)

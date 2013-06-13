@@ -3,6 +3,7 @@ package de.shop.ui.artikel;
 import static de.shop.util.Constants.ARTIKEL_KEY;
 import de.shop.R;
 import de.shop.data.Artikel;
+import de.shop.ui.main.Prefs;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,11 +25,30 @@ public class ArtikelDetails extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         artikel = (Artikel) getArguments().get(ARTIKEL_KEY);
         Log.d(LOG_TAG, artikel.toString());
-        
+        setHasOptionsMenu(true);
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
 		return inflater.inflate(R.layout.artikel_details, container, false);
 	}
-	
+	@Override
+	// Nur aufgerufen, falls setHasOptionsMenu(true) in onCreateView() aufgerufen wird
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.main, menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.einstellungen:
+				getFragmentManager().beginTransaction()
+                                    .replace(R.id.details, new Prefs())
+                                    .addToBackStack(null)
+                                    .commit();
+				return true;
+				
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		final Activity activity = getActivity();
@@ -45,6 +67,9 @@ public class ArtikelDetails extends Fragment {
     	final TextView txtPreis = (TextView) view.findViewById(R.id.artikel_preis);
     	String preis = ""+artikel.preis;
     	txtPreis.setText(preis);
+    	
+    	final TextView txtverf = (TextView) view.findViewById(R.id.artikel_verfuegbar);
+      	txtverf.setText(artikel.verfuegbarkeit);
 //	    Tab tab = actionBar.newTab()
 //	                       .setText(getString(R.string.k_stammdaten))
 //	                       .setTabListener(new TabListener<artikelStammdaten>(activity,

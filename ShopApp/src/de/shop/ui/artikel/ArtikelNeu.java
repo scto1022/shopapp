@@ -1,25 +1,26 @@
 package de.shop.ui.artikel;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Artikel;
 import de.shop.service.HttpResponse;
 import de.shop.ui.main.Main;
+import de.shop.ui.main.Prefs;
 import static de.shop.util.Constants.ARTIKEL_KEY;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
-
 public class ArtikelNeu extends Fragment implements OnClickListener {
 	
 private static final String LOG_TAG = ArtikelNeu.class.getSimpleName();
@@ -46,25 +47,17 @@ Log.d(LOG_TAG, "View wird aufgebaut");
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		Log.d(LOG_TAG, "View wird aufgebaut");
-		final Context ctx = view.getContext();
 		final  String LOG_TAG = ArtikelNeu.class.getSimpleName();
 		newBezeichnung = (EditText) view.findViewById(R.id.bezeichnung_new);
-		final String artikelbezeichnung = newBezeichnung.getText().toString();
-		if (TextUtils.isEmpty(artikelbezeichnung)) {
-			newBezeichnung.setError(getString(R.string.a_artikelnr_fehlt));
-    		return;
-    	}
-		final Main mainActivity = (Main) getActivity();
-		Log.d(LOG_TAG, "er extrahiert jetzt die Werte");
-		artikel.bezeichnung = artikelbezeichnung;
-		newPreis = (EditText) view.findViewById(R.id.artikel_preis);
-		final double preis = Double.parseDouble(newPreis.getText().toString());
-			artikel.preis = preis;	
-			artikel.verfuegbarkeit = "Ja";
+		newPreis = (EditText) view.findViewById(R.id.preis_new);
+		rbja = (RadioButton) view.findViewById(R.id.ja);
+		rbnein = (RadioButton) view.findViewById(R.id.nein);
+final Main mainActivity = (Main) getActivity();
 		
+		mainActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		
+		view.findViewById(R.id.btn_anlegen).setOnClickListener(this);
 		
-		create(view);
 		
 	}
 	@Override // OnClickListener
@@ -78,34 +71,73 @@ Log.d(LOG_TAG, "View wird aufgebaut");
 			default:
 				break;
 		}
+		
+	}
+	@Override
+	// Nur aufgerufen, falls setHasOptionsMenu(true) in onCreateView() aufgerufen wird
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.main, menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.einstellungen:
+				getFragmentManager().beginTransaction()
+                                    .replace(R.id.details, new Prefs())
+                                    .addToBackStack(null)
+                                    .commit();
+				return true;
+				
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 		private void create(View view) {
-			final Context ctx = view.getContext();
 			final  String LOG_TAG = ArtikelNeu.class.getSimpleName();
-			newBezeichnung = (EditText) view.findViewById(R.id.bezeichnung_new);
-			final String artikelbezeichnung = newBezeichnung.getText().toString();
-			if (TextUtils.isEmpty(artikelbezeichnung)) {
-				newBezeichnung.setError(getString(R.string.a_artikelnr_fehlt));
-	    		return;
-	    	}
+			final Context ctxx = view.getContext();
+			Log.d(LOG_TAG,"Create Aufruf ");
+			final String artikelNameStr = newBezeichnung.getText().toString();
+			if(artikelNameStr.isEmpty())
+				Log.d(LOG_TAG," Artikelbezeichnung wird nicht extrahiert und ist null!");
+			Log.d(LOG_TAG,artikelNameStr);
+			if (TextUtils.isEmpty(artikelNameStr)) {
+				newBezeichnung.setError(getString(R.string.a_bezeichnung_fehlt));
+				return;
+			}
+			final String artikelPreis = newPreis.getText().toString();
+			if (TextUtils.isEmpty(artikelPreis)) {
+				newPreis.setError(getString(R.string.a_preis_fehlt));
+				return;
+			}
+			
+			final Double preis = Double.valueOf(artikelPreis);
+			Log.d(LOG_TAG, preis + "wurde in double umgewandelt!");
+			artikel = new Artikel();
+			artikel.bezeichnung = artikelNameStr;
+			artikel.preis = preis;
+			if(rbja.isChecked())
+			artikel.verfuegbarkeit = "ja";
+			else {
+			artikel.verfuegbarkeit ="nein";}
 			final Main mainActivity = (Main) getActivity();
-			Log.d(LOG_TAG, "er extrahiert jetzt die Werte");
-			artikel.bezeichnung = artikelbezeichnung;
-			newPreis = (EditText) view.findViewById(R.id.artikel_preis);
-			final double preis = Double.parseDouble(newPreis.getText().toString());
-				artikel.preis = preis;	
-				artikel.verfuegbarkeit = "Ja";
-			
-			
-			
-			
-			final HttpResponse<? extends Artikel> result = mainActivity.getArtikelServiceBinder().createArtikel(artikel, ctx);		
+			final HttpResponse<? extends Artikel> result = mainActivity.getArtikelServiceBinder().createArtikel(artikel, ctxx);		
 			
 			
 			 Log.d(LOG_TAG,"http response in artikelsucheID wurde befüllt : " + result.toString());
 
+			final Artikel artikel = result.resultObject;
+			final Bundle args = new Bundle(1);
+			args.putSerializable(ARTIKEL_KEY, artikel);
+			 final Fragment neuesFragment = new ArtikelDetails();
+				neuesFragment.setArguments(args);
+				
+				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+				getFragmentManager().beginTransaction()
+				                    .replace(R.id.details, neuesFragment)
+				                    .addToBackStack(null)
+				                    .commit();
 			
-
 		
 		} 
     }

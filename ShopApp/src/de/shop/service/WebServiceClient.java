@@ -383,6 +383,7 @@ final class WebServiceClient {
 
     
     static <T extends JsonMappable> HttpResponse<T> postJson(T jsonMappable, String path) {
+    	Log.d(LOG_TAG, "JSONMAPPABLE wird aufgerufen");
     	URL url;
     	try {
 			url = new URL(getBaseUrl() + path);
@@ -408,6 +409,7 @@ final class WebServiceClient {
 
 				writer = new BufferedWriter(new OutputStreamWriter(httpConnection.getOutputStream()));
 				writer.write(jsonMappable.toJsonObject().toString());
+				Log.d(LOG_TAG,"Writer wird befüllt");
 			}
 			finally {
 				writer.close();

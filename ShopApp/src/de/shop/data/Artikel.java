@@ -84,11 +84,10 @@ public class Artikel implements Serializable,JsonMappable {
 	
 	 protected JsonObjectBuilder getJsonObjectBuilder() {
 		    return jsonBuilderFactory.createObjectBuilder()
-		                         .add("aid", id)
 		                           .add("bezeichnung", bezeichnung)
 		                           .add("verfuegbarkeit", verfuegbarkeit)
-		                           .add("preis", preis)
-		                           .add("version", version);
+		                           .add("preis", preis);
+		                           
 		                          
 		  }
 		  
