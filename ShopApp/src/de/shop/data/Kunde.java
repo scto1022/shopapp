@@ -8,15 +8,19 @@ public class Kunde implements Serializable {
 	
 	public Long id;
 	public String name;
+	public String vname;
+	public String email;
 
 	public Kunde() {
 		super();
 	}
 	
-	public Kunde(Long id, String name) {
+	public Kunde(Long id, String name, String vname, String email) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.vname = vname;
+		this.email = email;
 	}
 
 	@Override

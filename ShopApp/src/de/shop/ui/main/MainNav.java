@@ -26,6 +26,7 @@ import de.shop.ui.artikel.ArtikelNeu;
 //import de.shop.ui.kunde.KundeSucheId;
 //import de.shop.ui.kunde.KundenSucheNachname;
 import de.shop.ui.artikel.ArtikelSucheId;
+import de.shop.ui.kunde.KundenSucheId;
 
 public class MainNav extends ListFragment implements OnItemClickListener, OnMenuItemClickListener  {
 	public enum NavType {
@@ -58,6 +59,7 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 	private static final int[] TO = { R.id.nav_icon, R.id.nav_text };
 	
 	private PopupMenu artikelPopup;
+	private PopupMenu kundenPopup;
 //	private PopupMenu bestellungenPopup;
 //	
 	@Override
@@ -112,14 +114,14 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 		
 		PopupMenu popup;
 		switch (NavType.valueOf(itemPosition)) {
-//			case KUNDEN:
-//				if (kundenPopup == null) {
-//					kundenPopup = new PopupMenu(getActivity(), view);
-//					kundenPopup.inflate(R.menu.kunden_popup);
-//					kundenPopup.setOnMenuItemClickListener(this);
-//				}
-//				popup = kundenPopup;
-//				break;
+			case KUNDEN:
+				if (kundenPopup == null) {
+					kundenPopup = new PopupMenu(getActivity(), view);
+					kundenPopup.inflate(R.menu.kunden_popup);
+					kundenPopup.setOnMenuItemClickListener(this);
+				}
+				popup = kundenPopup;
+				break;
 				
 			case ARTIKEL:
 				if (artikelPopup == null) {
@@ -142,9 +144,9 @@ public class MainNav extends ListFragment implements OnItemClickListener, OnMenu
 	public boolean onMenuItemClick(MenuItem item) {
 		Fragment neuesFragment;
 		switch (item.getItemId()) {
-//			case R.id.kunden_suche_id:
-//				neuesFragment = new KundeSucheId();
-//				break;
+			case R.id.kunden_suche_id:
+				neuesFragment = new KundenSucheId();
+				break;
 //				
 //			case R.id.kunden_suche_nachname:
 //				neuesFragment = new KundenSucheNachname();
