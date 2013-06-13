@@ -153,52 +153,52 @@ final class Mock {
 //		return ids;
 //	}
 //
-    static List<Long> sucheKundeIdsByPrefix(String kundeIdPrefix) {
-		int dateinameId = -1;
-    	if ("1".equals(kundeIdPrefix)) {
-    		dateinameId = R.raw.mock_ids_1;
-    	}
-    	else if ("10".equals(kundeIdPrefix)) {
-    		dateinameId = R.raw.mock_ids_10;
-    	}
-    	else if ("11".equals(kundeIdPrefix)) {
-    		dateinameId = R.raw.mock_ids_11;
-    	}
-    	else if ("2".equals(kundeIdPrefix)) {
-    		dateinameId = R.raw.mock_ids_2;
-    	}
-    	else if ("20".equals(kundeIdPrefix)) {
-    		dateinameId = R.raw.mock_ids_20;
-    	}
-    	else {
-    		return Collections.emptyList();
-    	}
-    	
-    	final String jsonStr = read(dateinameId);
-		JsonReader jsonReader = null;
-    	JsonArray jsonArray;
-    	try {
-    		jsonReader = jsonReaderFactory.createReader(new StringReader(jsonStr));
-    		jsonArray = jsonReader.readArray();
-    	}
-    	finally {
-    		if (jsonReader != null) {
-    			jsonReader.close();
-    		}
-    	}
-    	
-    	final List<Long> result = new ArrayList<Long>(jsonArray.size());
-    	final List<JsonNumber> jsonNumberList = jsonArray.getValuesAs(JsonNumber.class);
-	    for (JsonNumber jsonNumber : jsonNumberList) {
-	    	final Long id = Long.valueOf(jsonNumber.longValue());
-	    	result.add(id);
-    	}
-    	
-    	Log.d(LOG_TAG, "ids= " + result.toString());
-    	
-    	return result;
-    }
-
+//    static List<Long> sucheKundeIdsByPrefix(String kundeIdPrefix) {
+//		int dateinameId = -1;
+//    	if ("1".equals(kundeIdPrefix)) {
+//    		dateinameId = R.raw.mock_ids_1;
+//    	}
+//    	else if ("10".equals(kundeIdPrefix)) {
+//    		dateinameId = R.raw.mock_ids_10;
+//    	}
+//    	else if ("11".equals(kundeIdPrefix)) {
+//    		dateinameId = R.raw.mock_ids_11;
+//    	}
+//    	else if ("2".equals(kundeIdPrefix)) {
+//    		dateinameId = R.raw.mock_ids_2;
+//    	}
+//    	else if ("20".equals(kundeIdPrefix)) {
+//    		dateinameId = R.raw.mock_ids_20;
+//    	}
+//    	else {
+//    		return Collections.emptyList();
+//    	}
+//    	
+//    	final String jsonStr = read(dateinameId);
+//		JsonReader jsonReader = null;
+//    	JsonArray jsonArray;
+//    	try {
+//    		jsonReader = jsonReaderFactory.createReader(new StringReader(jsonStr));
+//    		jsonArray = jsonReader.readArray();
+//    	}
+//    	finally {
+//    		if (jsonReader != null) {
+//    			jsonReader.close();
+//    		}
+//    	}
+//    	
+//    	final List<Long> result = new ArrayList<Long>(jsonArray.size());
+//    	final List<JsonNumber> jsonNumberList = jsonArray.getValuesAs(JsonNumber.class);
+//	    for (JsonNumber jsonNumber : jsonNumberList) {
+//	    	final Long id = Long.valueOf(jsonNumber.longValue());
+//	    	result.add(id);
+//    	}
+//    	
+//    	Log.d(LOG_TAG, "ids= " + result.toString());
+//    	
+//    	return result;
+//    }
+//
 //    static List<String> sucheNachnamenByPrefix(String nachnamePrefix) {
 //    	if (TextUtils.isEmpty(nachnamePrefix)) {
 //    		return Collections.emptyList();

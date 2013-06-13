@@ -51,9 +51,7 @@ public class KundeService extends Service {
 			final String path = KUNDEN_ID_PREFIX_PATH + "/" + prefix;
 		    Log.v(LOG_TAG, "sucheIds: path = " + path);
 
-    		final List<Long> ids = mock
-   				                   ? Mock.sucheKundeIdsByPrefix(prefix)
-   				                   : WebServiceClient.getJsonLongList(path);
+    		final List<Long> ids = WebServiceClient.getJsonLongList(path);
 
 			Log.d(LOG_TAG, "sucheIds: " + ids.toString());
 			return ids;
@@ -74,9 +72,7 @@ public class KundeService extends Service {
 					final Long id = ids[0];
 		    		final String path = KUNDEN_PATH + "/" + id;
 		    		Log.v(LOG_TAG, "path = " + path);
-		    		final HttpResponse<Kunde> result = mock
-		    				                                   ? Mock.sucheKundeById(id)
-		    				                                   : WebServiceClient.getJsonSingle(path, Kunde.class);
+		    		final HttpResponse<Kunde> result = WebServiceClient.getJsonSingle(path, Kunde.class);
 
 					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
 					return result;
