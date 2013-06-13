@@ -8,5 +8,6 @@
     <string name="k_kunde_id_auswahl_hint">Select a Customer No.</string>
     <string name="k_kunde_id_hint">Enter Customer No.</string>
     <string name="k_kundennr_fehlt">Customer No. missing</string>
+    <string name="k_kunde_not_found">Customer not found!</string>
 	
 </resources>
