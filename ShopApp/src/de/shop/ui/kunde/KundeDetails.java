@@ -86,15 +86,15 @@ public class KundeDetails extends Fragment {
     	final TextView txtverf = (TextView) view.findViewById(R.id.kunde_email);
       	txtverf.setText(kunde.email);
       	
-		if (Main.class.equals(activity.getClass())) {
+		//if (Main.class.equals(activity.getClass())) {
 			Main main = (Main) activity;
 			kundeServiceBinder = main.getKundeServiceBinder();
 			bestellungServiceBinder = main.getBestellungServiceBinder();
-		}
-		else {
-			Log.e(LOG_TAG, "Activity " + activity.getClass().getSimpleName() + " nicht beruecksichtigt.");
-			return;
-		}
+		//}
+		//else {
+		//	Log.e(LOG_TAG, "Activity " + activity.getClass().getSimpleName() + " nicht beruecksichtigt.");
+		//	return;
+		//}
 		
       	bestellungenIds = kundeServiceBinder.sucheBestellungenIdsByKundeId(kunde.id, view.getContext());
 		
