@@ -34,7 +34,7 @@ private static final String LOG_TAG = ArtikelNeu.class.getSimpleName();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	//	artikel = (Artikel) getArguments().get(ARTIKEL_KEY);
-	//	Log.d(LOG_TAG, artikel.toString());
+Log.d(LOG_TAG, "View wird aufgebaut");
         
 		// Voraussetzung fuer onOptionsItemSelected()
 		setHasOptionsMenu(true);
@@ -45,6 +45,26 @@ private static final String LOG_TAG = ArtikelNeu.class.getSimpleName();
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+		Log.d(LOG_TAG, "View wird aufgebaut");
+		final Context ctx = view.getContext();
+		final  String LOG_TAG = ArtikelNeu.class.getSimpleName();
+		newBezeichnung = (EditText) view.findViewById(R.id.bezeichnung_new);
+		final String artikelbezeichnung = newBezeichnung.getText().toString();
+		if (TextUtils.isEmpty(artikelbezeichnung)) {
+			newBezeichnung.setError(getString(R.string.a_artikelnr_fehlt));
+    		return;
+    	}
+		final Main mainActivity = (Main) getActivity();
+		Log.d(LOG_TAG, "er extrahiert jetzt die Werte");
+		artikel.bezeichnung = artikelbezeichnung;
+		newPreis = (EditText) view.findViewById(R.id.artikel_preis);
+		final double preis = Double.parseDouble(newPreis.getText().toString());
+			artikel.preis = preis;	
+			artikel.verfuegbarkeit = "Ja";
+		
+		
+		
+		create(view);
 		
 	}
 	@Override // OnClickListener
