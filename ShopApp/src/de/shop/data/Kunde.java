@@ -1,9 +1,14 @@
 package de.shop.data;
 
+import static de.shop.ShopApp.jsonBuilderFactory;
+
 import java.io.Serializable;
 
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
-public class Kunde implements Serializable {
+
+public class Kunde implements Serializable, JsonMappable {
 	private static final long serialVersionUID = 1293068472891525321L;
 	
 	public Long id;
@@ -58,4 +63,31 @@ public class Kunde implements Serializable {
 	public String toString() {
 		return "Kunde [id=" + id + ", name=" + name + "]";
 	}
+	
+	// TODO Neuen kunden anlegen
+	protected JsonObjectBuilder getJsonObjectBuilder() {
+	    return jsonBuilderFactory.createObjectBuilder()
+	                      	.add("MOCK", name);
+	                           
+	                          
+	}
+	  
+	@Override
+	public JsonObject toJsonObject() {
+		return getJsonObjectBuilder().build();
+	}
+	
+	// TODO Version implementieren
+	@Override
+	public void updateVersion() {
+	}
+	
+	public void fromJsonObject(JsonObject jsonObject) {
+	  id = Long.valueOf(jsonObject.getJsonNumber("kid").longValue());
+	  name = jsonObject.getString("nachname");
+	  vname = jsonObject.getString("vorname");
+	  email = jsonObject.getString("email");
+	}
+	
+	
 }

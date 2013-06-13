@@ -34,5 +34,37 @@
 			android:paddingLeft="5dp" />
 
 	</TableRow>
+	
+	<TableRow>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/k_vname" />
+		
+		<TextView
+			android:id="@+id/kunde_vname"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="5dp" />
+
+	</TableRow>
+	
+	<TableRow>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/k_email" />
+		
+		<TextView
+			android:id="@+id/kunde_email"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="5dp" />
+
+	</TableRow>
+	
+	
 
 </TableLayout>
