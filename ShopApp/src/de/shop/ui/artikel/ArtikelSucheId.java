@@ -1,35 +1,36 @@
 package de.shop.ui.artikel;
 
 	import static android.view.inputmethod.EditorInfo.IME_NULL;
-	import static de.shop.util.Constants.ARTIKEL_KEY;
-	import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static de.shop.util.Constants.ARTIKEL_KEY;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
 	import java.util.Collections;
-	import java.util.List;
+import java.util.List;
 
 	import android.app.ActionBar;
-	import android.app.Fragment;
-	import android.content.Context;
-	import android.os.Bundle;
-	import android.text.TextUtils;
-	import android.view.KeyEvent;
-	import android.view.LayoutInflater;
-	import android.view.Menu;
-	import android.view.MenuInflater;
-	import android.view.MenuItem;
-	import android.view.View;
-	import android.view.View.OnClickListener;
-	import android.view.ViewGroup;
-	import android.widget.ArrayAdapter;
-	import android.widget.AutoCompleteTextView;
-	import android.widget.Filter;
-	import android.widget.TextView;
-	import android.widget.TextView.OnEditorActionListener;
-	import de.shop.R;
-	import de.shop.data.Artikel;
-	import de.shop.service.HttpResponse;
-	import de.shop.ui.main.Main;
-	import de.shop.ui.main.Prefs;
+import android.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Filter;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import de.shop.R;
+import de.shop.data.Artikel;
+import de.shop.service.HttpResponse;
+import de.shop.ui.main.Main;
+import de.shop.ui.main.Prefs;
 
 	public class ArtikelSucheId extends Fragment implements OnClickListener, OnEditorActionListener {
 		
@@ -95,7 +96,7 @@ package de.shop.ui.artikel;
 
 		private void suchen(View view) {
 			final Context ctx = view.getContext();
-
+			final  String LOG_TAG = ArtikelSucheId.class.getSimpleName();
 			final String artikelIdStr = artikelIdTxt.getText().toString();
 			if (TextUtils.isEmpty(artikelIdStr)) {
 				artikelIdTxt.setError(getString(R.string.a_artikelnr_fehlt));
@@ -105,18 +106,19 @@ package de.shop.ui.artikel;
 			final Long artikelId = Long.valueOf(artikelIdStr);
 			final Main mainActivity = (Main) getActivity();
 			final HttpResponse<? extends Artikel> result = mainActivity.getArtikelServiceBinder().sucheArtikelById(artikelId, ctx);
-
+			 Log.d(LOG_TAG,"http response in artikelsucheID wurde befüllt : " + result.toString());
 			if (result.responseCode == HTTP_NOT_FOUND) {
 				final String msg = getString(R.string.a_artikel_not_found, artikelIdStr);
 				artikelIdTxt.setError(msg);
 				return;
 			}
 			
-			final Artikel artikel = result.resultObject;
+			final Artikel artikel =(Artikel) result.resultObject;
+			 Log.d(LOG_TAG,"umwandlung von json in artikel hat geklappt : " + artikel.toString());
 			final Bundle args = new Bundle(1);
 			args.putSerializable(ARTIKEL_KEY, artikel);
 			
-			final Fragment neuesFragment = new Artikels();
+			final Fragment neuesFragment = new ArtikelDetails();
 			neuesFragment.setArguments(args);
 			
 			// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird

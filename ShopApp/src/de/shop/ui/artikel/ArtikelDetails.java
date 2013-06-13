@@ -37,7 +37,14 @@ public class ArtikelDetails extends Fragment {
 
 	    final Bundle args = new Bundle(1);
     	args.putSerializable(ARTIKEL_KEY, artikel);
-
+		final TextView txtId = (TextView) view.findViewById(R.id.artikel_id);
+    	txtId.setText(artikel.id.toString());
+    	
+    	final TextView txtName = (TextView) view.findViewById(R.id.bezeichnung);
+    	txtName.setText(artikel.bezeichnung);
+    	final TextView txtPreis = (TextView) view.findViewById(R.id.artikel_preis);
+    	String preis = ""+artikel.preis;
+    	txtPreis.setText(preis);
 //	    Tab tab = actionBar.newTab()
 //	                       .setText(getString(R.string.k_stammdaten))
 //	                       .setTabListener(new TabListener<artikelStammdaten>(activity,
