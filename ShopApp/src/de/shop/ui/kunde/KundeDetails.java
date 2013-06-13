@@ -20,6 +20,9 @@ import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Bestellung;
 import de.shop.data.Kunde;
+import de.shop.service.BestellungService.BestellungServiceBinder;
+import de.shop.service.BestellungService.*;
+import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
 
@@ -29,6 +32,8 @@ public class KundeDetails extends Fragment {
 	private Kunde kunde;
 	private List<Long> bestellungenIds;
 	private List<Bestellung> bestellungen;
+	private KundeServiceBinder kundeServiceBinder;
+	private BestellungServiceBinder bestellungServiceBinder;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,14 +81,22 @@ public class KundeDetails extends Fragment {
     	txtName.setText(kunde.name);
     	
     	final TextView txtPreis = (TextView) view.findViewById(R.id.kunde_vname);
-    	String preis = ""+kunde.vname;
-    	txtPreis.setText(preis);
+    	txtPreis.setText(kunde.vname);
     	
     	final TextView txtverf = (TextView) view.findViewById(R.id.kunde_email);
       	txtverf.setText(kunde.email);
       	
-      	final Main mainActivity = (Main) getActivity();
-      	bestellungenIds = mainActivity.getKundeServiceBinder().sucheBestellungenIdsByKundeId(kunde.id, view.getContext());
+		if (Main.class.equals(activity.getClass())) {
+			Main main = (Main) activity;
+			kundeServiceBinder = main.getKundeServiceBinder();
+			bestellungServiceBinder = main.getBestellungServiceBinder();
+		}
+		else {
+			Log.e(LOG_TAG, "Activity " + activity.getClass().getSimpleName() + " nicht beruecksichtigt.");
+			return;
+		}
+		
+      	bestellungenIds = kundeServiceBinder.sucheBestellungenIdsByKundeId(kunde.id, view.getContext());
 		
       	final TextView txtBest = (TextView) view.findViewById(R.id.kunde_hasOrders);
       	
