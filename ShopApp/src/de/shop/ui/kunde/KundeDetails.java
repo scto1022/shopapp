@@ -1,6 +1,10 @@
 package de.shop.ui.kunde;
 
 import static de.shop.util.Constants.KUNDE_KEY;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -14,13 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import de.shop.R;
+import de.shop.data.Bestellung;
 import de.shop.data.Kunde;
+import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
 
 public class KundeDetails extends Fragment {
 
 	private static final String LOG_TAG = KundeDetails.class.getSimpleName();
 	private Kunde kunde;
+	private List<Long> bestellungenIds;
+	private List<Bestellung> bestellungen;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +81,21 @@ public class KundeDetails extends Fragment {
     	
     	final TextView txtverf = (TextView) view.findViewById(R.id.kunde_email);
       	txtverf.setText(kunde.email);
+      	
+      	final Main mainActivity = (Main) getActivity();
+      	bestellungenIds = mainActivity.getKundeServiceBinder().sucheBestellungenIdsByKundeId(kunde.id, view.getContext());
+		if (bestellungenIds == null || bestellungenIds.isEmpty()) {
+		}
+		else {
+	        int anzahl = bestellungenIds.size();
+	        bestellungen = new ArrayList<Bestellung>(anzahl);
+			final String[] values = new String[anzahl];
+			for (int i = 0; i < anzahl; i++) {
+	        	bestellungen.add(null);
+	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
+	        	Log.d(LOG_TAG, values[i]);
+	        }
+		}
    }
 	
 }

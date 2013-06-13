@@ -3,11 +3,13 @@
     <string name="k_kunde_details_title">Customer</string>
     <string name="k_kunde_id">Customer No.</string>
     <string name="k_name">Name</string>
-    <string name="k_vname">Vorname</string>
+    <string name="k_vname">Prename</string>
     <string name="k_email">Email</string>
+    <string name="k_hasOrders">Orders</string>
     <string name="k_kunde_id_auswahl_hint">Select a Customer No.</string>
     <string name="k_kunde_id_hint">Enter Customer No.</string>
     <string name="k_kundennr_fehlt">Customer No. missing</string>
     <string name="k_kunde_not_found">Customer not found!</string>
+    <string name="k_kunde_bestellung_id">Order no. %d</string>
 	
 </resources>

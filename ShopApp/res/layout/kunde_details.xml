@@ -65,6 +65,21 @@
 
 	</TableRow>
 	
+	<TableRow>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/k_hasOrders" />
+		
+		<TextView
+			android:id="@+id/kunde_hasOrders"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="5dp" />
+
+	</TableRow>
+	
 	
 
 </TableLayout>
