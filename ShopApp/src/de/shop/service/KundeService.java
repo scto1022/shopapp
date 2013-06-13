@@ -20,7 +20,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import de.shop.R;
-import de.shop.data.Artikel;
 import de.shop.data.Kunde;
 import de.shop.util.InternalShopError;
 
@@ -57,9 +56,9 @@ public class KundeService extends Service {
 			return ids;
 		}
 		
-		public HttpResponse<Artikel> sucheKundeById(Long id, final Context ctx) {
+		public HttpResponse<Kunde> sucheKundeById(Long id, final Context ctx) {
 			
-			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Artikel"
+			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Kunde"
 			final AsyncTask<Long, Void, HttpResponse<Kunde>> sucheKundeByIdTask = new AsyncTask<Long, Void, HttpResponse<Kunde>>() {
 				@Override
 	    		protected void onPreExecute() {
@@ -102,41 +101,42 @@ public class KundeService extends Service {
 		}
 		
 		// Aufruf in einem eigenen Thread
-		public Kunde getKunde(Long id) {
-			
-			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Kunde"
-			final AsyncTask<Long, Void, Kunde> getKundeTask = new AsyncTask<Long, Void, Kunde>() {
+				public Kunde getKunde(Long id) {
+					
+					// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Kunde"
+					final AsyncTask<Long, Void, Kunde> getKundeTask = new AsyncTask<Long, Void, Kunde>() {
 
-				@Override
-	    		protected void onPreExecute() {
-					Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread starten ...");
+						@Override
+			    		protected void onPreExecute() {
+							Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread starten ...");
+						}
+						
+						@Override
+						// Neuer Thread (hier: Emulation des REST-Aufrufs), damit der UI-Thread nicht blockiert wird
+						protected Kunde doInBackground(Long... ids) {
+							final Long kundeId = ids[0];
+							final Kunde kunde = new Kunde(kundeId,"Nachname", "Vorname", "beispiel@email.com");
+							Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + kunde);
+							return kunde;
+						}
+						
+						@Override
+			    		protected void onPostExecute(Kunde kunde) {
+							Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread beenden ...");
+			    		}
+					};
+					
+			    	getKundeTask.execute(id);
+			    	Kunde kunde = null;
+			    	try {
+						kunde = getKundeTask.get(3L, TimeUnit.SECONDS);
+					}
+			    	catch (Exception e) {
+			    		Log.e(LOG_TAG, e.getMessage(), e);
+					}
+			    	
+			    	return kunde;
 				}
-				
-				@Override
-				// Neuer Thread (hier: Emulation des REST-Aufrufs), damit der UI-Thread nicht blockiert wird
-				protected Kunde doInBackground(Long... ids) {
-					final Long kundeId = ids[0];
-					final Kunde kunde = new Kunde(kundeId, "Name" + kundeId);
-					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + kunde);
-					return kunde;
-				}
-				
-				@Override
-	    		protected void onPostExecute(Kunde kunde) {
-					Log.d(LOG_TAG, "... ProgressDialog im laufenden Thread beenden ...");
-	    		}
-			};
 			
-	    	getKundeTask.execute(id);
-	    	Kunde kunde = null;
-	    	try {
-				kunde = getKundeTask.get(3L, TimeUnit.SECONDS);
-			}
-	    	catch (Exception e) {
-	    		Log.e(LOG_TAG, e.getMessage(), e);
-			}
-	    	
-	    	return kunde;
-		}
 	}
 }
