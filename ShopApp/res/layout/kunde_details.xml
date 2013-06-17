@@ -1,9 +1,9 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/kunde_details"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.kunde.KundeDetails" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/kunde_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.kunde.KundeDetails" >
 
 	<TableRow>
 
@@ -79,7 +79,11 @@
 			android:paddingLeft="5dp" />
 
 	</TableRow>
-	
-	
+
+	<ListView
+	    android:id="@+id/best_list"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	</ListView>
 
 </TableLayout>

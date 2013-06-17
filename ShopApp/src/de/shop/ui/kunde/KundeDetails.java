@@ -2,12 +2,14 @@ package de.shop.ui.kunde;
 
 import static de.shop.util.Constants.KUNDE_KEY;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Bestellung;
@@ -34,6 +38,8 @@ public class KundeDetails extends Fragment {
 	private List<Bestellung> bestellungen;
 	private KundeServiceBinder kundeServiceBinder;
 	private BestellungServiceBinder bestellungServiceBinder;
+	
+	private LazyAdapter adapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,6 +103,8 @@ public class KundeDetails extends Fragment {
 		//}
 		
       	bestellungenIds = kundeServiceBinder.sucheBestellungenIdsByKundeId(kunde.id, view.getContext());
+      	
+      	
 		
       	final TextView txtBest = (TextView) view.findViewById(R.id.kunde_hasOrders);
       	
@@ -104,17 +112,67 @@ public class KundeDetails extends Fragment {
       		txtBest.setText("Nope!");
       	}
 		else {
+			final ListView list = (ListView) view.findViewById(R.id.best_list);
+			
+			
 	        int anzahl = bestellungenIds.size();
 	        bestellungen = new ArrayList<Bestellung>(anzahl);
 			final String[] values = new String[anzahl];
 			for (int i = 0; i < anzahl; i++) {
-	        	bestellungen.add(null);
+	        	bestellungen.add(new Bestellung(Long.valueOf(6), BigDecimal.valueOf(26.55)));
 	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
 	        	Log.d(LOG_TAG, values[i]);
 	        }
+			adapter = new LazyAdapter(main, R.layout.row_layout, bestellungen.toArray(new Bestellung[0]));
 			
 			txtBest.setText("" + anzahl);
 		}
    }
+
+	public class LazyAdapter extends ArrayAdapter<Bestellung> {
+   	 
+        public Context context;
+        public int layoutResourceId;
+        public Bestellung data[] = null;
+
+     
+        public LazyAdapter(Context context, int layoutResourceId, Bestellung[] data) {
+
+        	super(context, layoutResourceId, data);
+        	this.layoutResourceId = layoutResourceId;
+        	this.context = context;
+        	this.data = data;
+        }
+     
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            BestellungHolder holder;
+            if(row == null)
+            {
+                LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            	row = inflater.inflate(layoutResourceId, parent, false);
+            	
+            	holder = new BestellungHolder();
+            	holder.id = (TextView)row.findViewById(R.id.best_id);
+            	holder.gesamtpreis = (TextView)row.findViewById(R.id.best_gesamtpreis);
+            	row.setTag(holder);
+            }
+            
+            Bestellung bestellung = data[position];
+            
+            TextView bestId = (TextView)row.findViewById(R.id.best_id);
+            TextView bestGesPreis = (TextView)row.findViewById(R.id.best_gesamtpreis);
+     
+            // Setting all values in listview
+            bestId.setText(bestellung.id + "");
+            bestGesPreis.setText(bestellung.gesamtpreis + "€");
+            return row;
+        }
+}
+    static class BestellungHolder
+    {
+    	TextView id;
+    	TextView gesamtpreis;
+    }
 	
 }
