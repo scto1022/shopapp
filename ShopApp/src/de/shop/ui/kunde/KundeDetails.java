@@ -124,6 +124,7 @@ public class KundeDetails extends Fragment {
 	        	Log.d(LOG_TAG, values[i]);
 	        }
 			adapter = new LazyAdapter(main, R.layout.row_layout, bestellungen.toArray(new Bestellung[0]));
+			list.setAdapter(adapter);
 			
 			txtBest.setText("" + anzahl);
 		}
