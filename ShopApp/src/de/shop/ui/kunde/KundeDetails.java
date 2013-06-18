@@ -1,6 +1,7 @@
 package de.shop.ui.kunde;
 
 import static de.shop.util.Constants.KUNDE_KEY;
+import static java.net.HttpURLConnection.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import de.shop.R;
 import de.shop.data.Bestellung;
 import de.shop.data.Kunde;
 import de.shop.service.BestellungService.BestellungServiceBinder;
+import de.shop.service.HttpResponse;
 import de.shop.service.BestellungService.*;
 import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.main.Main;
@@ -114,12 +116,21 @@ public class KundeDetails extends Fragment {
 		else {
 			final ListView list = (ListView) view.findViewById(R.id.best_list);
 			
-			
 	        int anzahl = bestellungenIds.size();
 	        bestellungen = new ArrayList<Bestellung>(anzahl);
+	        HttpResponse<? extends Bestellung> thisResult = null;
+	        Bestellung thisBest = null;
 			final String[] values = new String[anzahl];
 			for (int i = 0; i < anzahl; i++) {
-	        	bestellungen.add(new Bestellung(Long.valueOf(6), BigDecimal.valueOf(26.55)));
+				thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(i), view.getContext());
+				
+				if (thisResult.responseCode != HTTP_OK) {
+					//final String msg = getString(R.string.a_artikel_not_found);
+					return;
+				}
+				thisBest = (Bestellung) thisResult.resultObject;
+				
+	        	bestellungen.add(thisBest);
 	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
 	        	Log.d(LOG_TAG, values[i]);
 	        }
