@@ -41,7 +41,7 @@ public class BestellungService extends Service {
 		
 		// Aufruf in einem eigenen Thread
 		public HttpResponse<Bestellung> getBestellungById(Long id, final Context ctx) {
-			Log.d(LOG_TAG, "Starte GetBestellung #" + id);
+			Log.d(LOG_TAG, "Starte GetBestellung #" + id + " - Context: " + ctx);
 			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Bestellung"
 			final AsyncTask<Long, Void, HttpResponse<Bestellung>> getBestellungByIdTask = new AsyncTask<Long, Void, HttpResponse<Bestellung>>() {
 
