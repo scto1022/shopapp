@@ -115,12 +115,25 @@ public class KundeDetails extends Fragment {
       	}
 		else {
 			Log.d(LOG_TAG, "Starte get! (Alle Bestellungen)");
-			kundeServiceBinder.sucheBestellungenByKundeId(kunde.id, view.getContext());
+			HttpResponse<Bestellung> bstlngnRes = kundeServiceBinder.sucheBestellungenByKundeId(kunde.id, view.getContext());
+			List<Bestellung> bstlngn = bstlngnRes.resultList;
+			
+			
 			Log.d(LOG_TAG, "get beendet!");
 			
 			
 			final ListView list = (ListView) view.findViewById(R.id.best_list);
 			int anzahl = bestellungenIds.size();
+			
+			
+			for (int i = 0; i < anzahl; i++) {
+				Log.d(LOG_TAG, String.valueOf(bstlngn.get(i).gesamtpreis));
+			}
+			
+			
+			
+			
+			
 	   
 	        bestellungen = new ArrayList<Bestellung>(anzahl);
 	        HttpResponse<? extends Bestellung> thisResult = null;
