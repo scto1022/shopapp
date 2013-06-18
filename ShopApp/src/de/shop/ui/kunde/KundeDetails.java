@@ -121,21 +121,23 @@ public class KundeDetails extends Fragment {
 	        HttpResponse<? extends Bestellung> thisResult = null;
 	        Bestellung thisBest = null;
 			final String[] values = new String[anzahl];
+			Log.d(LOG_TAG, "Starte Schleife! (Alle Bestellungen)");
 			for (int i = 0; i < anzahl; i++) {
-				thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(i), view.getContext());
+				Log.d(LOG_TAG, "Ziehe Bestellung #" + values[i]);
+				thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(Integer.valueOf(values[i])), view.getContext());
 				
-//				if (thisResult.responseCode != HTTP_OK) {
-//					//final String msg = getString(R.string.a_artikel_not_found);
-//					return;
-//				}
-//				thisBest = (Bestellung) thisResult.resultObject;
-//				
-//	        	bestellungen.add(thisBest);
-//	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
-//	        	Log.d(LOG_TAG, values[i]);
+				if (thisResult.responseCode != HTTP_OK) {
+					//final String msg = getString(R.string.a_artikel_not_found);
+					return;
+				}
+				thisBest = (Bestellung) thisResult.resultObject;
+				
+	        	bestellungen.add(thisBest);
+	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
+	        	Log.d(LOG_TAG, values[i]);
 	        }
-//			adapter = new LazyAdapter(main, R.layout.row_layout, bestellungen.toArray(new Bestellung[0]));
-//			list.setAdapter(adapter);
+			adapter = new LazyAdapter(main, R.layout.row_layout, bestellungen.toArray(new Bestellung[0]));
+			list.setAdapter(adapter);
 			
 			txtBest.setText("" + anzahl);
 		}
