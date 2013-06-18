@@ -125,21 +125,22 @@ public class KundeDetails extends Fragment {
 			final ListView list = (ListView) view.findViewById(R.id.best_list);
 			int anzahl = bestellungenIds.size();
 			
-			
+			if (bstlngnRes.responseCode != HTTP_OK) {
+				return;
+			}
 			for (int i = 0; i < anzahl; i++) {
 				Log.d(LOG_TAG, String.valueOf(bstlngn.get(i).gesamtpreis));
 			}
+			adapter = new LazyAdapter(main, R.layout.row_layout, bstlngn.toArray(new Bestellung[0]));
+			list.setAdapter(adapter);
 			
 			
 			
 			
 			
 	   
-	        bestellungen = new ArrayList<Bestellung>(anzahl);
-	        HttpResponse<? extends Bestellung> thisResult = null;
-	        Bestellung thisBest = null;
+	   
 			final String[] values = new String[anzahl];
-			Log.d(LOG_TAG, "Starte Schleife! (Alle Bestellungen)");
 //			for (int i = 0; i < anzahl; i++) {
 //				Log.d(LOG_TAG, "Ziehe Bestellung #" + bestellungenIds.get(i));
 //				try {
