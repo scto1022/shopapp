@@ -123,8 +123,8 @@ public class KundeDetails extends Fragment {
 			final String[] values = new String[anzahl];
 			Log.d(LOG_TAG, "Starte Schleife! (Alle Bestellungen)");
 			for (int i = 0; i < anzahl; i++) {
-				Log.d(LOG_TAG, "Ziehe Bestellung #" + values[i]);
-				thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(Integer.valueOf(values[i])), view.getContext());
+				Log.d(LOG_TAG, "Ziehe Bestellung #" + bestellungenIds.get(i));
+				thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(i), view.getContext());
 				
 				if (thisResult.responseCode != HTTP_OK) {
 					//final String msg = getString(R.string.a_artikel_not_found);
