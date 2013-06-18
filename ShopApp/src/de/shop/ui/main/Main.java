@@ -17,22 +17,16 @@ import android.widget.Toast;
 
 import de.shop.R;
 import de.shop.data.Kunde;
-import de.shop.service.BestellungService.BestellungServiceBinder;
-import de.shop.service.BestellungService;
-//import de.shop.service.BestellungService;
 import de.shop.service.KundeService;
 import de.shop.service.ArtikelService;
 import de.shop.service.ArtikelService.ArtikelServiceBinder;
-//import de.shop.service.BestellungService.ArtikelServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
-import de.shop.ui.kunde.KundeDetails;
 
 public class Main extends Activity {
 	private static final String LOG_TAG = Main.class.getSimpleName();
 	
 	private KundeServiceBinder kundeServiceBinder;
 	private ArtikelServiceBinder ArtikelServiceBinder;
-	private BestellungServiceBinder bestellungServiceBinder;
 	
 	// ServiceConnection ist ein Interface: anonyme Klasse verwenden, um ein Objekt davon zu erzeugen
 	private ServiceConnection kundeServiceConnection = new ServiceConnection() {
@@ -58,19 +52,6 @@ public class Main extends Activity {
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			ArtikelServiceBinder = null;
-		}
-	};
-	
-	private ServiceConnection bestellungServiceConnection = new ServiceConnection() {
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder serviceBinder) {
-			Log.v(LOG_TAG, "onServiceConnected() fuer BestellungServiceBinder");
-			bestellungServiceBinder = (BestellungServiceBinder) serviceBinder;
-		}
-
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-			bestellungServiceBinder = null;
 		}
 	};
 	
@@ -122,9 +103,6 @@ public class Main extends Activity {
 		
 		intent = new Intent(this, ArtikelService.class);
 		bindService(intent, artikelServiceConnection, Context.BIND_AUTO_CREATE);
-		
-		intent = new Intent(this, BestellungService.class);
-		bindService(intent, bestellungServiceConnection, Context.BIND_AUTO_CREATE);
     }
     
 	@Override
@@ -133,7 +111,6 @@ public class Main extends Activity {
 		
 		unbindService(kundeServiceConnection);
 		unbindService(artikelServiceConnection);
-		unbindService(bestellungServiceConnection);
 	}
 
 	public KundeServiceBinder getKundeServiceBinder() {
@@ -144,7 +121,4 @@ public class Main extends Activity {
 		return ArtikelServiceBinder;
 	}
 	
-	public BestellungServiceBinder getBestellungServiceBinder() {
-		return bestellungServiceBinder;
-	}
 }
