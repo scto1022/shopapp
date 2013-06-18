@@ -19,6 +19,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import de.shop.R;
+import de.shop.data.Bestellung;
 import de.shop.data.Kunde;
 import de.shop.util.InternalShopError;
 
@@ -163,5 +164,37 @@ public class KundeService extends Service {
 	
 			return bestellungIds;
 	    }
+		
+		public HttpResponse<Bestellung> sucheBestellungenByKundeId(Long id, final Context ctx) {
+			
+			final AsyncTask<Long, Void, HttpResponse<Bestellung>> sucheBestellungenByKundeIdTask = new AsyncTask<Long, Void, HttpResponse<Bestellung>>() {
+				protected HttpResponse<Bestellung> doInBackground(Long... ids) {
+					final Long id = ids[0];
+					final String path = KUNDEN_PATH + "/" + id + "/bestellungen";
+					Log.v(LOG_TAG, "path = " + path);
+					final HttpResponse<Bestellung> resultList = WebServiceClient.getJsonList(path, Bestellung.class);
+					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + resultList);
+					
+					return resultList;
+					
+				}
+			};
+			
+			sucheBestellungenByKundeIdTask.execute(id);
+    		HttpResponse<Bestellung> result = null;
+	    	try {
+	    		result = sucheBestellungenByKundeIdTask.get(timeout, SECONDS);
+			}
+	    	catch (Exception e) {
+	    		throw new InternalShopError(e.getMessage(), e);
+			}
+	    	
+    		if (result.responseCode != HTTP_OK) {
+	    		return result;
+		    }
+    		
+//    		setBestellungenUri(result.resultObject);
+		    return result;
+		}
 	}
 }

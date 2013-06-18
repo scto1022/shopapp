@@ -114,32 +114,41 @@ public class KundeDetails extends Fragment {
       		txtBest.setText("Nope!");
       	}
 		else {
-			final ListView list = (ListView) view.findViewById(R.id.best_list);
+			Log.d(LOG_TAG, "Starte get! (Alle Bestellungen)");
+			kundeServiceBinder.sucheBestellungenByKundeId(kunde.id, view.getContext());
+			Log.d(LOG_TAG, "get beendet!");
 			
-	        int anzahl = bestellungenIds.size();
+			
+			final ListView list = (ListView) view.findViewById(R.id.best_list);
+			int anzahl = bestellungenIds.size();
+	   
 	        bestellungen = new ArrayList<Bestellung>(anzahl);
 	        HttpResponse<? extends Bestellung> thisResult = null;
 	        Bestellung thisBest = null;
 			final String[] values = new String[anzahl];
 			Log.d(LOG_TAG, "Starte Schleife! (Alle Bestellungen)");
-			for (int i = 0; i < anzahl; i++) {
-				Log.d(LOG_TAG, "Ziehe Bestellung #" + bestellungenIds.get(i));
-				thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(i), view.getContext());
-				
-				if (thisResult.responseCode != HTTP_OK) {
-					//final String msg = getString(R.string.a_artikel_not_found);
-					return;
-				}
-				thisBest = (Bestellung) thisResult.resultObject;
-				
-	        	bestellungen.add(thisBest);
-	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
-	        	Log.d(LOG_TAG, values[i]);
-	        }
-			adapter = new LazyAdapter(main, R.layout.row_layout, bestellungen.toArray(new Bestellung[0]));
-			list.setAdapter(adapter);
-			
-			txtBest.setText("" + anzahl);
+//			for (int i = 0; i < anzahl; i++) {
+//				Log.d(LOG_TAG, "Ziehe Bestellung #" + bestellungenIds.get(i));
+//				try {
+//					thisResult = bestellungServiceBinder.getBestellungById(bestellungenIds.get(i), view.getContext());
+//				} catch(Exception e) {
+//					Log.d(LOG_TAG, "Bestellung konnte nicht gezogen werden! #" + bestellungenIds.get(i));
+//				}
+//				
+//				if (thisResult.responseCode != HTTP_OK) {
+//					//final String msg = getString(R.string.a_artikel_not_found);
+//					return;
+//				}
+//				thisBest = (Bestellung) thisResult.resultObject;
+//				
+//	        	bestellungen.add(thisBest);
+//	        	values[i] = getString(R.string.k_kunde_bestellung_id, bestellungenIds.get(anzahl - i - 1));
+//	        	Log.d(LOG_TAG, values[i]);
+//	        }
+//			adapter = new LazyAdapter(main, R.layout.row_layout, bestellungen.toArray(new Bestellung[0]));
+//			list.setAdapter(adapter);
+//			
+//			txtBest.setText("" + anzahl);
 		}
    }
 
