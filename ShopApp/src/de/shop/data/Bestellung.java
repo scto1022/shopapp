@@ -83,8 +83,8 @@ public class Bestellung implements Serializable, JsonMappable {
 	}
 	
 	public void fromJsonObject(JsonObject jsonObject) {
-	  id = Long.valueOf(jsonObject.getJsonNumber("kid").longValue());
-	  gesamtpreis = jsonObject.getJsonNumber("nachname").bigDecimalValue();
+	  id = Long.valueOf(jsonObject.getJsonNumber("bId").longValue());
+	  gesamtpreis = jsonObject.getJsonNumber("gesamtpreis").bigDecimalValue();
 	}
 	
 	
