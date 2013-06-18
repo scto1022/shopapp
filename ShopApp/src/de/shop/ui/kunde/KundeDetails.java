@@ -113,7 +113,7 @@ public class KundeDetails extends Fragment {
 				.findViewById(R.id.kunde_hasOrders);
 
 		if (bestellungenIds == null || bestellungenIds.isEmpty()) {
-			txtBest.setText("Nope!");
+			txtBest.setText("No Orders available!");
 		} else {
 			Log.d(LOG_TAG, "Starte get! (Alle Bestellungen)");
 			HttpResponse<Bestellung> bstlngnRes = kundeServiceBinder
