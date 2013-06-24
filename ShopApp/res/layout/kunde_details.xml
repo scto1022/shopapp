@@ -67,7 +67,7 @@
 	
 	<TableRow>
 		<TextView
-        android:id="@string/k_head_list_best"
+        android:text="@string/k_head_list_best"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
