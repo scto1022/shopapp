@@ -12,14 +12,14 @@ import javax.json.JsonObjectBuilder;
 public class Bestellung implements Serializable, JsonMappable {
 	private static final long serialVersionUID = 1293068472891525011L;
 	
-	public Long id;
-	public BigDecimal gesamtpreis;
+	public String id;
+	public String gesamtpreis;
 
 	public Bestellung() {
 		super();
 	}
 	
-	public Bestellung(Long id, BigDecimal gesamtpreis) {
+	public Bestellung(String id, String gesamtpreis) {
 		super();
 		this.id = id;
 		this.gesamtpreis = gesamtpreis;
@@ -83,8 +83,8 @@ public class Bestellung implements Serializable, JsonMappable {
 	}
 	
 	public void fromJsonObject(JsonObject jsonObject) {
-	  id = Long.valueOf(jsonObject.getJsonNumber("bId").longValue());
-	  gesamtpreis = jsonObject.getJsonNumber("gesamtpreis").bigDecimalValue();
+	  id = String.valueOf(jsonObject.getJsonNumber("bId").longValue());
+	  gesamtpreis = String.valueOf(jsonObject.getJsonNumber("gesamtpreis").bigDecimalValue());
 	}
 	
 	
