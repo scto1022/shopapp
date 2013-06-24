@@ -11,18 +11,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" /> 
+        android:layout_marginBottom="8dp"
+        android:text="652" /> 
   
     <TextView
         android:id="@+id/best_gesamtpreis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" /> 
+        android:layout_marginBottom="8dp"
+        android:text="26.55 €" /> 
       
   
     

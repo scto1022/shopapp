@@ -114,6 +114,9 @@ public class KundeDetails extends Fragment {
 
 		} else {
 			Log.d(LOG_TAG, "Starte get! (Alle Bestellungen)");
+			
+			
+			
 			HttpResponse<Bestellung> bstlngnRes = kundeServiceBinder
 					.sucheBestellungenByKundeId(kunde.id, view.getContext());
 			List<Bestellung> bstlngn = bstlngnRes.resultList;

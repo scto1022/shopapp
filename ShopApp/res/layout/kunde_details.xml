@@ -10,7 +10,8 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/k_kunde_id" />
+			android:text="@string/k_kunde_id"
+			android:textStyle="bold" />
 		
 		<TextView
 			android:id="@+id/kunde_id"
@@ -25,7 +26,8 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/k_name" />
+			android:text="@string/k_name"
+			android:textStyle="bold" />
 		
 		<TextView
 			android:id="@+id/name"
@@ -40,7 +42,8 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/k_vname" />
+			android:text="@string/k_vname"
+			android:textStyle="bold" />
 		
 		<TextView
 			android:id="@+id/kunde_vname"
@@ -55,7 +58,8 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/k_email" />
+			android:text="@string/k_email"
+			android:textStyle="bold" />
 		
 		<TextView
 			android:id="@+id/kunde_email"
@@ -70,8 +74,6 @@
         android:text="@string/k_head_list_best"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 	
 		<ListView
