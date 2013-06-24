@@ -120,7 +120,7 @@ public class KundeDetails extends Fragment {
 			HttpResponse<Bestellung> bstlngnRes = kundeServiceBinder
 					.sucheBestellungenByKundeId(kunde.id, view.getContext());
 			List<Bestellung> bstlngn = bstlngnRes.resultList;
-			bstlngn.add(0, new Bestellung("ID", "Preis"));
+			bstlngn.add(0, new Bestellung("ID", "Preis in "));
 
 			Log.d(LOG_TAG, "get beendet!");
 
