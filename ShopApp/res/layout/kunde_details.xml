@@ -65,8 +65,8 @@
 
 	</TableRow>
 	
-
-	<TextView
+	<TableRow>
+		<TextView
         android:id="@string/k_head_list_best"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,10 +74,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 	
-	<ListView
+		<ListView
 	    android:id="@+id/best_list"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content" >
-	</ListView>
+		</ListView>
+		</TableRow>
 
 </TableLayout>
