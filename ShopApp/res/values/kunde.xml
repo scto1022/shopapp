@@ -11,5 +11,6 @@
     <string name="k_kundennr_fehlt">Customer No. missing</string>
     <string name="k_kunde_not_found">Customer not found!</string>
     <string name="k_kunde_bestellung_id">Order no. %d</string>
+    <string name="k_head_list_best">Orders</string>
 	
 </resources>

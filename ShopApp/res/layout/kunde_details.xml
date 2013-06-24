@@ -65,21 +65,14 @@
 
 	</TableRow>
 	
-	<TableRow>
 
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/k_hasOrders" />
-		
-		<TextView
-			android:id="@+id/kunde_hasOrders"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:paddingLeft="5dp" />
-
-	</TableRow>
-
+	<TextView
+        android:id="@string/k_head_list_best"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 	<ListView
 	    android:id="@+id/best_list"
 	    android:layout_width="match_parent"

@@ -109,11 +109,9 @@ public class KundeDetails extends Fragment {
 		bestellungenIds = kundeServiceBinder.sucheBestellungenIdsByKundeId(
 				kunde.id, view.getContext());
 
-		final TextView txtBest = (TextView) view
-				.findViewById(R.id.kunde_hasOrders);
 
 		if (bestellungenIds == null || bestellungenIds.isEmpty()) {
-			txtBest.setText("No Orders available!");
+
 		} else {
 			Log.d(LOG_TAG, "Starte get! (Alle Bestellungen)");
 			HttpResponse<Bestellung> bstlngnRes = kundeServiceBinder
