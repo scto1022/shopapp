@@ -3,7 +3,6 @@ package de.shop.data;
 import static de.shop.ShopApp.jsonBuilderFactory;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;

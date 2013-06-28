@@ -1,16 +1,9 @@
 package de.shop.service;
 
 import static de.shop.ShopApp.jsonReaderFactory;
-import static de.shop.ui.main.Prefs.username;
-import static de.shop.util.Constants.KUNDEN_PATH;
 import static de.shop.util.Constants.ARTIKEL_PATH;
-import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_CREATED;
-import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
-import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
-import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,20 +11,16 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.json.JsonArray;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonString;
 
-import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
 import de.shop.ShopApp;
-import de.shop.data.Kunde;
 import de.shop.data.Artikel;
 import de.shop.util.InternalShopError;
 

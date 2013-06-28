@@ -1,8 +1,5 @@
 package de.shop.ui.main;
 
-import static de.shop.util.Constants.KUNDE_KEY;
-
-import static de.shop.util.Constants.ARTIKEL_KEY;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -11,10 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import de.shop.data.Kunde;
-import de.shop.service.KundeService;
 import de.shop.service.KundeService.KundeServiceBinder;
-import de.shop.util.InternalShopError;
 
 public class SucheIdActivity extends Activity {
 	private static final String LOG_TAG = SucheIdActivity.class.getSimpleName();
